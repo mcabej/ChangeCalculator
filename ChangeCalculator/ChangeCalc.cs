@@ -8,7 +8,7 @@ namespace ChangeCalculator
 {
     public static class ChangeCalc
     {
-        public static List<string> GetChange(double productPrice, double payment)
+        public static List<string> GetChange(decimal productPrice, decimal payment)
         {
             var changeDue = payment - productPrice;
             var change = new List<string>();
@@ -33,33 +33,33 @@ namespace ChangeCalculator
             if (twoPounds > 0) change.Add($"{twoPounds} x £2");
             changeDue %= 2;
 
-            var fiftyPence = (int)(changeDue / 0.5);
+            var fiftyPence = (int)(changeDue / 0.5M);
             if (fiftyPence > 0) change.Add($"{fiftyPence} x 50p");
-            changeDue %= 0.5;
+            changeDue %= 0.5M;
 
-            var twentyPence = (int)(changeDue / 0.2);
+            var twentyPence = (int)(changeDue / 0.2M);
             if (twentyPence > 0) change.Add($"{twentyPence} x 20p");
-            changeDue %= 0.2;
+            changeDue %= 0.2M;
 
-            var tenPence = (int)(changeDue / 0.1);
+            var tenPence = (int)(changeDue / 0.1M);
             if (tenPence > 0) change.Add($"{tenPence} x 10p");
-            changeDue %= 0.1;
+            changeDue %= 0.1M;
 
-            var fivePence = (int)(changeDue / 0.05);
+            var fivePence = (int)(changeDue / 0.05M);
             if (fivePence > 0) change.Add($"{fivePence} x 5p");
-            changeDue %= 0.05;
+            changeDue %= 0.05M;
 
-            var twoPence = (int)(changeDue / 0.02);
+            var twoPence = (int)(changeDue / 0.02M);
             if (twoPence > 0) change.Add($"{twoPence} x 2p");
-            changeDue %= 0.02;
+            changeDue %= 0.02M;
 
-            var penny = (int)(changeDue / 0.01);
+            var penny = (int)(changeDue / 0.01M);
             if (penny > 0) change.Add($"{penny} x 1p");
 
             return change;
         }
 
-        public static double RequestForMoney(string message)
+        public static decimal RequestForMoney(string message)
         {
             while (true)
             {
@@ -67,7 +67,7 @@ namespace ChangeCalculator
 
                 var userInput = Console.ReadLine();
 
-                if (double.TryParse(userInput, out var result))
+                if (decimal.TryParse(userInput, out var result))
                 {
                     return result;
                 }
@@ -76,7 +76,7 @@ namespace ChangeCalculator
             }
         }
 
-        public static bool IsPaymentValid(double productPrice, double payment)
+        public static bool IsPaymentValid(decimal productPrice, decimal payment)
         {
             return payment >= productPrice;
         }
