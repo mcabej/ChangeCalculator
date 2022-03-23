@@ -63,5 +63,32 @@ namespace ChangeCalculator.Tests
             // Assert
             CollectionAssert.AreEqual(expectedValues, change);
         }
+        
+        [TestMethod]
+        public void GetChange_AllDenominations()
+        {
+            // Arrange
+            var expectedValues = new List<string>
+            {
+                "1 x £50",
+                "1 x £20",
+                "1 x £10",
+                "1 x £5",
+                "1 x £2",
+                "1 x £1",
+                "1 x 50p",
+                "1 x 20p",
+                "1 x 10p",
+                "1 x 5p",
+                "1 x 2p",
+                "1 x 1p"
+            };
+
+            // Act
+            var change = ChangeCalc.GetChange(100, 188.88M);
+
+            // Assert
+            CollectionAssert.AreEqual(expectedValues, change);
+        }
     }
 }

@@ -11,6 +11,10 @@ namespace ChangeCalculator
         public static List<string> GetChange(decimal productPrice, decimal payment)
         {
             var changeDue = payment - productPrice;
+
+            Console.WriteLine();
+            Console.WriteLine("Total change is: £{0}", changeDue);
+
             var change = new List<string>();
 
             var fiftyPounds = (int)(changeDue / 50);
@@ -32,6 +36,10 @@ namespace ChangeCalculator
             var twoPounds = (int)(changeDue / 2);
             if (twoPounds > 0) change.Add($"{twoPounds} x £2");
             changeDue %= 2;
+
+            var onePounds = (int)(changeDue / 1);
+            if (onePounds > 0) change.Add($"{onePounds} x £1");
+            changeDue %= 1;
 
             var fiftyPence = (int)(changeDue / 0.5M);
             if (fiftyPence > 0) change.Add($"{fiftyPence} x 50p");
@@ -69,10 +77,13 @@ namespace ChangeCalculator
 
                 if (decimal.TryParse(userInput, out var result))
                 {
-                    return result;
+                    if (decimal.Round(result, 2) == result)
+                    {
+                        return result;
+                    }
                 }
 
-                Console.WriteLine("Invalid value, not a number {0}", userInput);
+                Console.WriteLine("Invalid value, not a valid UK Currency {0}", userInput);
             }
         }
 
